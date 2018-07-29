@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session); // Se usa par aguardar las sessiones en mongodb ya que 
+const MongoStore = require('connect-mongo')(session); // Se usa par aguardar las sessiones en mongodb
 
 const conn = require('./conecction');
 const port = 8080;
@@ -20,19 +20,12 @@ app.use(session({
 }));
 
 app.get('/', (req, res) => {
-  // console.log(req.session)
+  // console.log(req.session);
   // Cuenta es el nombre que le damos y lo agregamos al object session
   req.session.cuenta = req.session.cuenta ? req.session.cuenta + 1 : 1
-  res.status(200).send(`Hola has visto esta página ${req.session.cuenta}`)
-})
-
-conn.on('error', console.error.bind(console, 'connection error'));
-
-conn.on('open', () => {
-  // console.info(conn.readyState)
-  console.log('Conexión a la base de datos establecidad....');
+  res.status(200).send(`Hola has visto esta página ${req.session.cuenta}`);
 });
 
 app.listen(port, () => {
-  console.log(`Escuchando en el port ${port}`)
-})
+  console.log(`Escuchando en el port ${port}`);
+});
